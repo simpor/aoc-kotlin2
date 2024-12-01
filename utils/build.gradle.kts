@@ -6,8 +6,13 @@ plugins {
     alias(libs.plugins.kotlinPluginSerialization)
 }
 
+val kotestVersion = providers.gradleProperty("kotestVersion").get()
+
 dependencies {
     // Apply the kotlinx bundle of dependencies from the version catalog (`gradle/libs.versions.toml`).
     implementation(libs.bundles.kotlinxEcosystem)
     testImplementation(kotlin("test"))
+    testImplementation("io.kotest:kotest-runner-junit5:$kotestVersion")
+    testImplementation("io.kotest:kotest-assertions-core:$kotestVersion")
+    testImplementation("io.kotest:kotest-property:$kotestVersion")
 }

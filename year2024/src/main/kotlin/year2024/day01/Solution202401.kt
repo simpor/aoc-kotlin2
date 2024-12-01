@@ -8,24 +8,18 @@ import kotlin.math.abs
 fun main() {
 
     fun part1(input: String, debug: Boolean = false): Long {
-        val lines = input.lines()
-
-        val pairs = lines.map {
+        val pairs = input.lines().map {
             val split = it.split("   ")
             Pair(split.first().toLong(), split.last().toLong())
         }
 
         val firstList = pairs.map { it.first }.sorted()
         val secondList = pairs.map { it.second }.sorted()
-
-        val sum = firstList.mapIndexed { index, i -> abs(i - secondList[index]) }.sum()
-
-        return sum
+        return firstList.zip(secondList).sumOf { abs(it.first - it.second) }
     }
 
     fun part2(input: String, debug: Boolean = false): Long {
-        val lines = input.lines()
-        val pairs = lines.map {
+        val pairs = input.lines().map {
             val split = it.split("   ")
             Pair(split.first().toLong(), split.last().toLong())
         }
@@ -33,7 +27,7 @@ fun main() {
         val firstList = pairs.map { it.first }.sorted()
         val secondList = pairs.map { it.second }.sorted()
 
-        val sum = firstList.map { it * secondList.filter { i -> i == it }.count() }.sum()
+        val sum = firstList.sumOf { it * secondList.count { i -> i == it } }
         return sum
     }
 
