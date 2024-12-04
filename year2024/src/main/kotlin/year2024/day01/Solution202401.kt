@@ -1,7 +1,7 @@
 package year2024.day01
 
-import AoCUtils
-import AoCUtils.test
+import utils.AoCUtils
+import utils.AoCUtils.test
 import kotlin.math.abs
 
 

@@ -1,3 +1,5 @@
+package utils
+
 import java.io.File
 import java.math.BigInteger
 import java.security.MessageDigest
@@ -181,7 +183,7 @@ fun main() {
 fun readInput(name: String) = Path("src/$name.txt").readLines()
 
 /**
- * Converts string to md5 hash.
+ * Converts string to utils.md5 hash.
  */
 fun String.md5() = BigInteger(1, MessageDigest.getInstance("MD5").digest(toByteArray()))
     .toString(16)

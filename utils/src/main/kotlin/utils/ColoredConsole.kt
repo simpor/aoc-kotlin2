@@ -1,14 +1,9 @@
-import ColoredConsole.Companion.BLACK
-import ColoredConsole.Companion.BRIGHT_BLACK
-import ColoredConsole.Companion.BRIGHT_WHITE
-import ColoredConsole.Companion.RESET
-import ColoredConsole.Companion.WHITE
-import ColoredConsole.Style
-import ColoredConsole.Style.NotApplied
+package utils
+
 import java.util.regex.Pattern
 
 /**
- * Credits: https://github.com/marcelmatula/colored-console/blob/master/src/year2021.main/kotlin/com/github/mm/coloredconsole/ColoredConsole.kt
+ * Credits: https://github.com/marcelmatula/utils.colored-console/blob/master/src/year2021.utils.main/kotlin/com/github/mm/coloredconsole/utils.ColoredConsole.kt
  */
 
 interface ColoredConsole {
@@ -218,42 +213,42 @@ interface ColoredConsole {
 
 private interface ColorConsoleDisabled : ColoredConsole {
 
-    override val bold get() = NotApplied
-    override val <N : Style> N.bold: Style get() = NotApplied
-    override val italic get() = NotApplied
-    override val <N : Style> N.italic: Style get() = NotApplied
-    override val underline get() = NotApplied
-    override val <N : Style> N.underline: Style get() = NotApplied
-    override val blink get() = NotApplied
-    override val <N : Style> N.blink: Style get() = NotApplied
-    override val reverse get() = NotApplied
-    override val <N : Style> N.reverse: Style get() = NotApplied
-    override val hidden get() = NotApplied
-    override val <N : Style> N.hidden: Style get() = NotApplied
+    override val bold get() = ColoredConsole.Style.NotApplied
+    override val <N : ColoredConsole.Style> N.bold: ColoredConsole.Style get() = ColoredConsole.Style.NotApplied
+    override val italic get() = ColoredConsole.Style.NotApplied
+    override val <N : ColoredConsole.Style> N.italic: ColoredConsole.Style get() = ColoredConsole.Style.NotApplied
+    override val underline get() = ColoredConsole.Style.NotApplied
+    override val <N : ColoredConsole.Style> N.underline: ColoredConsole.Style get() = ColoredConsole.Style.NotApplied
+    override val blink get() = ColoredConsole.Style.NotApplied
+    override val <N : ColoredConsole.Style> N.blink: ColoredConsole.Style get() = ColoredConsole.Style.NotApplied
+    override val reverse get() = ColoredConsole.Style.NotApplied
+    override val <N : ColoredConsole.Style> N.reverse: ColoredConsole.Style get() = ColoredConsole.Style.NotApplied
+    override val hidden get() = ColoredConsole.Style.NotApplied
+    override val <N : ColoredConsole.Style> N.hidden: ColoredConsole.Style get() = ColoredConsole.Style.NotApplied
 
-    override val red get() = NotApplied
-    override val <N : Style> N.red: Style get() = NotApplied
-    override val black get() = NotApplied
-    override val <N : Style> N.black: Style get() = NotApplied
-    override val green get() = NotApplied
-    override val <N : Style> N.green: Style get() = NotApplied
-    override val yellow get() = NotApplied
-    override val <N : Style> N.yellow: Style get() = NotApplied
-    override val blue get() = NotApplied
-    override val <N : Style> N.blue: Style get() = NotApplied
-    override val purple get() = NotApplied
-    override val <N : Style> N.purple: Style get() = NotApplied
-    override val cyan get() = NotApplied
-    override val <N : Style> N.cyan: Style get() = NotApplied
-    override val white get() = NotApplied
-    override val <N : Style> N.white: Style get() = NotApplied
+    override val red get() = ColoredConsole.Style.NotApplied
+    override val <N : ColoredConsole.Style> N.red: ColoredConsole.Style get() = ColoredConsole.Style.NotApplied
+    override val black get() = ColoredConsole.Style.NotApplied
+    override val <N : ColoredConsole.Style> N.black: ColoredConsole.Style get() = ColoredConsole.Style.NotApplied
+    override val green get() = ColoredConsole.Style.NotApplied
+    override val <N : ColoredConsole.Style> N.green: ColoredConsole.Style get() = ColoredConsole.Style.NotApplied
+    override val yellow get() = ColoredConsole.Style.NotApplied
+    override val <N : ColoredConsole.Style> N.yellow: ColoredConsole.Style get() = ColoredConsole.Style.NotApplied
+    override val blue get() = ColoredConsole.Style.NotApplied
+    override val <N : ColoredConsole.Style> N.blue: ColoredConsole.Style get() = ColoredConsole.Style.NotApplied
+    override val purple get() = ColoredConsole.Style.NotApplied
+    override val <N : ColoredConsole.Style> N.purple: ColoredConsole.Style get() = ColoredConsole.Style.NotApplied
+    override val cyan get() = ColoredConsole.Style.NotApplied
+    override val <N : ColoredConsole.Style> N.cyan: ColoredConsole.Style get() = ColoredConsole.Style.NotApplied
+    override val white get() = ColoredConsole.Style.NotApplied
+    override val <N : ColoredConsole.Style> N.white: ColoredConsole.Style get() = ColoredConsole.Style.NotApplied
 }
 
-private val Int.isNormalColor get() = this in BLACK..WHITE
-private val Int.isBrightColor get() = this in BRIGHT_BLACK..BRIGHT_WHITE
+private val Int.isNormalColor get() = this in ColoredConsole.Companion.BLACK..ColoredConsole.Companion.WHITE
+private val Int.isBrightColor get() = this in ColoredConsole.Companion.BRIGHT_BLACK..ColoredConsole.Companion.BRIGHT_WHITE
 private val Int.isColor get() = isNormalColor || isBrightColor
 
-private fun String.applyCodes(vararg codes: Int) = "\u001B[${RESET}m".let { reset ->
+private fun String.applyCodes(vararg codes: Int) = "\u001B[${ColoredConsole.Companion.RESET}m".let { reset ->
     val tags = codes.joinToString { "\u001B[${it}m" }
     split(reset).filter { it.isNotEmpty() }.joinToString(separator = "") { tags + it + reset }
 }
@@ -267,7 +262,7 @@ fun <R> colored(enabled: Boolean = true, block: ColoredConsole.() -> R): R {
     return if (enabled) object : ColoredConsole {}.block() else object : ColorConsoleDisabled {}.block()
 }
 
-fun <R : Style> style(block: ColoredConsole.() -> R): R = object : ColoredConsole {}.block()
+fun <R : ColoredConsole.Style> style(block: ColoredConsole.() -> R): R = object : ColoredConsole {}.block()
 
 fun print(colored: Boolean = true, block: ColoredConsole.() -> String) = colored(colored) { print(block()) }
 fun println(colored: Boolean = true, block: ColoredConsole.() -> String) = colored(colored) { println(block()) }

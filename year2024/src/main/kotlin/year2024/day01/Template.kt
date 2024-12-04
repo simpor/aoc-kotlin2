@@ -1,6 +1,7 @@
 package year2024.day01
 
-import AoCUtils.test
+import utils.AoCUtils
+import utils.AoCUtils.test
 
 fun main() {
 
