@@ -53,8 +53,6 @@ fun main() {
 
                 val str2 = map.around(pos, dir2).map { it.value }.sorted().joinToString()
                 val str1 = map.around(pos, dir1).map { it.value }.sorted().joinToString()
-
-//                println("str1: $str1 -- str2: $str2")
                 if (str2 == "M, S" && str1 == "M, S") 1
                 else 0
             }.sum().toLong()
