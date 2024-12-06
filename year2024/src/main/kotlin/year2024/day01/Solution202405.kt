@@ -9,9 +9,12 @@ fun main() {
         val rules = input.lines().filter { it.contains('|') }.map {
             val split = it.split("|")
             Pair(split.first().toLong(), split.last().toLong())
-        }.toMap()
+        }.groupBy { it.second }
 
-        val rulesInverted = rules.map { Pair(it.value, it.key) }.toMap()
+        val rulesInverted = input.lines().filter { it.contains('|') }.map {
+            val split = it.split("|")
+            Pair(split.first().toLong(), split.last().toLong())
+        }.groupBy { it.first }
 
         val orders = input.lines().filter { it.contains(',') }.map { it.split(",").map { it.toLong() }.toList() }
 
@@ -20,10 +23,10 @@ fun main() {
             list.forEachIndexed { i, num ->
                 if (i == 0 && rules.contains(num)) {
                 } else if (i == list.size - 1) {
-                } else if (!rulesInverted.contains(num)) {
-                    return@filter false
+//                } else if (!rulesInverted.contains(num)) {
+//                    return@filter false
                 } else {
-                    rules.filter { it.value == num }.forEach {
+                    rules.filter { it.key == num }.forEach {
                         // key must be before
                         if (!nums.contains(it.key)) {
                             return@filter false

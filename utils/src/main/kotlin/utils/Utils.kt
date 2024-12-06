@@ -53,9 +53,6 @@ fun <T> Map2d<T>.around(
             if (!this.containsKey(it)) {
                 val maxX = this.keys.maxOf { m -> m.x }
                 val maxY = this.keys.maxOf { m -> m.y }
-                if (it.x == 1 && it.y == 9) {
-                    println("hej hej")
-                }
                 if (it.y < 0) it.copy(y = maxY)
                 else if (it.y > maxY) it.copy(y = 0)
                 else if (it.x < 0) it.copy(x = maxX)
