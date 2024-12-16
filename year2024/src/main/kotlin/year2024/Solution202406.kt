@@ -1,4 +1,4 @@
-package year2024.day01
+package year2024
 
 import utils.AoCUtils
 import utils.AoCUtils.test
@@ -6,7 +6,6 @@ import utils.Map2d
 import utils.Map2dDirection
 import utils.Point
 import utils.parseMap
-import utils.println
 
 fun main() {
 
